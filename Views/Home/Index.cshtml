@@ -1,0 +1,61 @@
+﻿@model CLDV6212POE.Models.CustomerProfile
+
+<div class="container mt-5">
+    <h2 class="mb-4">Manage Customer Profile</h2>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="UploadImage" method="post" enctype="multipart/form-data" class="mb-4">
+                <div class="mb-3">
+                    <label for="uploadImage" class="form-label">Upload Profile Image</label>
+                    <input type="file" class="form-control" name="file" id="uploadImage" />
+                </div>
+                <button type="submit" class="btn btn-primary">Upload Image</button>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            <form asp-action="AddCustomerProfile" method="post" class="mb-4">
+                <div class="mb-3">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" name="FirstName" id="firstName" placeholder="Enter First Name" />
+                </div>
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" name="LastName" id="lastName" placeholder="Enter Last Name" />
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="Email" id="email" placeholder="Enter Email" />
+                </div>
+                <div class="mb-3">
+                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                    <input type="text" class="form-control" name="PhoneNumber" id="phoneNumber" placeholder="Enter Phone Number" />
+                </div>
+                <button type="submit" class="btn btn-success">Add Profile</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="ProcessOrder" method="post" class="mb-4">
+                <div class="mb-3">
+                    <label for="orderId" class="form-label">Order ID</label>
+                    <input type="text" class="form-control" name="orderId" id="orderId" placeholder="Enter Order ID" />
+                </div>
+                <button type="submit" class="btn btn-warning">Process Order</button>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            <form asp-action="UploadContract" method="post" enctype="multipart/form-data" class="mb-4">
+                <div class="mb-3">
+                    <label for="uploadContract" class="form-label">Upload Contract</label>
+                    <input type="file" class="form-control" name="file" id="uploadContract" />
+                </div>
+                <button type="submit" class="btn btn-info">Upload Contract</button>
+            </form>
+        </div>
+    </div>
+</div>
