@@ -88,6 +88,6 @@ Include screenshots of the following:
 
 ## Repository Links
 
-- **GitHub Repository:** [Link to your GitHub repository](<repository-url>)
+- **GitHub Repository:** https://github.com/MogamatTayyibDawood/CLDV6212POE.git
 - **Deployed Application URL:** cldv6212poe-st10132915.azurewebsites.net
 
