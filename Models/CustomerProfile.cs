@@ -4,7 +4,7 @@ using System;
 
 namespace CLDV6212POE.Models
 {
-    // CustomerProfile represents a customer's profile entity for Azure Table Storage
+    // CustomerProfile represents a customer's profile entity for Azure Table Storage.
     public class CustomerProfile : ITableEntity
     {
         public string PartitionKey { get; set; } // PartitionKey for grouping related entities
