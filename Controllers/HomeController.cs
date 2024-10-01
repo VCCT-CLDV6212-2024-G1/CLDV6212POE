@@ -2,6 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using CLDV6212POE.Models;
 using CLDV6212POE.Services;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace CLDV6212POE.Controllers
 {
@@ -14,7 +19,6 @@ namespace CLDV6212POE.Controllers
 
         public HomeController(BlobService blobService, TableService tableService, QueueService queueService, FileService fileService)
         {
-            // Dependency injection for various services used in the controller
             _blobService = blobService;
             _tableService = tableService;
             _queueService = queueService;
@@ -23,50 +27,57 @@ namespace CLDV6212POE.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(new CustomerProfile());
         }
 
-        // Action method to handle image uploads via HTTP POST
-        [HttpPost]
-        public async Task<IActionResult> UploadImage(IFormFile file)
-        {
-            if (file != null)
-            {
-                using var stream = file.OpenReadStream();
-                await _blobService.UploadBlobAsync("product-images", file.FileName, stream);
-            }
-            return RedirectToAction("Index");
-        }
-
-        // Action method to add a new customer profile via HTTP POST
+        // Adds Customer Profile to Azure Table
         [HttpPost]
         public async Task<IActionResult> AddCustomerProfile(CustomerProfile profile)
         {
             if (ModelState.IsValid)
             {
                 await _tableService.AddEntityAsync(profile);
+                ViewBag.Message = "Customer profile added successfully!";
             }
-            return RedirectToAction("Index");
+            return View("Index", profile);
         }
 
-        // Action method to process an order by sending a message to an Azure Queue
+        // Uploads image to Azure Blob Storage
+        [HttpPost]
+        public async Task<IActionResult> UploadImage(IFormFile file)
+        {
+            if (file != null && file.Length > 0)
+            {
+                using var stream = file.OpenReadStream();
+                await _blobService.UploadBlobAsync("product-images", file.FileName, stream);
+                ViewBag.Message = "Image uploaded successfully!";
+            }
+            return View("Index");
+        }
+
+        // Sends a message to the Azure Queue
         [HttpPost]
         public async Task<IActionResult> ProcessOrder(string orderId)
         {
-            await _queueService.SendMessageAsync("order-processing", $"Processing order {orderId}");
-            return RedirectToAction("Index");
+            if (!string.IsNullOrEmpty(orderId))
+            {
+                await _queueService.SendMessageAsync("order-processing", $"Processing order {orderId}");
+                ViewBag.Message = "Order processed successfully!";
+            }
+            return View("Index");
         }
 
-        // Action method to handle contract uploads via HTTP POST
+        // Uploads file to Azure File Share
         [HttpPost]
-        public async Task<IActionResult> UploadContract(IFormFile file)
+        public async Task<IActionResult> UploadFileToAzure(IFormFile file)
         {
-            if (file != null)
+            if (file != null && file.Length > 0)
             {
                 using var stream = file.OpenReadStream();
-                await _fileService.UploadFileAsync("contracts-logs", file.FileName, stream);
+                await _fileService.UploadFileAsync("fileshare", file.FileName, stream);
+                ViewBag.Message = "File uploaded successfully!";
             }
-            return RedirectToAction("Index");
+            return View("Index");
         }
     }
 }
