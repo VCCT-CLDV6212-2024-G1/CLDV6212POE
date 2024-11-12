@@ -81,8 +81,8 @@ namespace CLDV6212POE.Controllers
             {
                 try
                 {
-                    // Call Azure function to upload the blob
-                    using var httpClient = _httpClientFactory.CreateClient();
+                   
+                    using var httpClient = _httpClientFactory.CreateClient(); // this method calls Azure function to upload blob
                     using var stream = imageFile.OpenReadStream();
                     var content = new StreamContent(stream);
                     content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(imageFile.ContentType);
