@@ -1,28 +1,31 @@
-﻿using Azure.Storage.Blobs;
+﻿using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace CLDV6212POE.Services
 {
-    // BlobService handles operations related to Azure Blob Storage
     public class BlobService
     {
-        private readonly BlobServiceClient _blobServiceClient;
+        private readonly IConfiguration _configuration;
 
-        // Constructor initialises the BlobServiceClient using the connection string from configuration
         public BlobService(IConfiguration configuration)
         {
-            _blobServiceClient = new BlobServiceClient(configuration["AzureStorage:ConnectionString"]);
+            _configuration = configuration;
         }
 
-        // Method to upload a blob (file) to a specified container in Azure Blob Storage
-        public async Task UploadBlobAsync(string containerName, string blobName, Stream content)
+        public async Task InsertBlobAsync(byte[] imageData)
         {
-            var containerClient = _blobServiceClient.GetBlobContainerClient(containerName); // Get the container client
-            await containerClient.CreateIfNotExistsAsync(); // Create the container if it doesn't exist
-            var blobClient = containerClient.GetBlobClient(blobName); // Get the blob client for the specific file
-            await blobClient.UploadAsync(content, true); // Upload the file content, overwrite if it exists
+            var connectionString = _configuration.GetConnectionString("DefaultConnection");
+            var query = @"INSERT INTO BlobTable (BlobImage) VALUES (@BlobImage)";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@BlobImage", imageData);
+
+                connection.Open();
+                await command.ExecuteNonQueryAsync();
+            }
         }
     }
 }

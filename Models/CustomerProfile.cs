@@ -4,25 +4,36 @@ using System;
 
 namespace CLDV6212POE.Models
 {
-    // CustomerProfile represents a customer's profile entity for Azure Table Storage.
     public class CustomerProfile : ITableEntity
     {
-        public string PartitionKey { get; set; } // PartitionKey for grouping related entities
-        public string RowKey { get; set; } // RowKey is the unique identifier for the entity
-        public DateTimeOffset? Timestamp { get; set; } // Timestamp for tracking the entity's last modification
-        public ETag ETag { get; set; } // ETag for concurrency control
+        public string PartitionKey { get; set; }
+        public string RowKey { get; set; }
+        public DateTimeOffset? Timestamp { get; set; }
+        public ETag ETag { get; set; }
 
-        // Additional properties for the customer profile
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
 
-        // Constructor to initialise the PartitionKey and generate a unique RowKey
+        public string? ContractFilePath { get; set; }
+        public string? ImageFilePath { get; set; }
+
+
+
+
         public CustomerProfile()
         {
             PartitionKey = "CustomerProfile";
             RowKey = Guid.NewGuid().ToString();
+
+            FirstName = string.Empty;
+            LastName = string.Empty;
+            Email = string.Empty;
+            PhoneNumber = string.Empty;
+
+            ContractFilePath = string.Empty;
+            ImageFilePath = string.Empty;
         }
     }
 }

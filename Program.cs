@@ -1,4 +1,7 @@
 using CLDV6212POE.Services;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 //References: 
 // https://learn.microsoft.com/en-us/azure/storage/common/storage-analytics-logging
@@ -15,14 +18,12 @@ namespace CLDV6212POE
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            builder.Services.AddHttpClient();
             builder.Services.AddControllersWithViews();
 
-            // Register your services here
-            builder.Services.AddSingleton<BlobService>();
-            builder.Services.AddSingleton<FileService>();
-            builder.Services.AddSingleton<QueueService>();
-            builder.Services.AddSingleton<TableService>();
+            // Register the services for dependency injection
+            builder.Services.AddScoped<CustomerService>();
+            builder.Services.AddScoped<BlobService>();
 
             var app = builder.Build();
 
@@ -45,9 +46,7 @@ namespace CLDV6212POE
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            app.Run();  // Run the application
-
+            app.Run();
         }
     }
 }
-//
