@@ -31,16 +31,16 @@ namespace CLDV6212POE.Controllers
             _blobService = blobService;
         }
 
-        // Action for Index page
+
         public IActionResult Index()
         {
             var model = new CustomerProfile();
             return View(model);
         }
 
-        // Existing method to store customer info in Table storage and new SQL insertion
+       
         [HttpPost]
-        public async Task<IActionResult> StoreTableInfo(CustomerProfile profile)
+        public async Task<IActionResult> StoreTableInfo(CustomerProfile profile) // store customer info in Table
         {
             if (ModelState.IsValid)
             {
