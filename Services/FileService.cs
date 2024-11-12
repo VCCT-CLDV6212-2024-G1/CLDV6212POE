@@ -19,7 +19,7 @@ namespace CLDV6212POE.Services
         // Method to upload a file to a specified share in Azure File Storage
         public async Task UploadFileAsync(string shareName, string fileName, Stream content)
         {
-            var shareClient = _shareServiceClient.GetShareClient(shareName); // Get the share client
+            var shareClient = _shareServiceClient.GetShareClient(shareName); // Get the share client.
             await shareClient.CreateIfNotExistsAsync(); // Create the share if it doesn't exist
             var directoryClient = shareClient.GetRootDirectoryClient(); // Get the root directory client
             var fileClient = directoryClient.GetFileClient(fileName); // Get the file client for the specific file
