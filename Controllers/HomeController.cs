@@ -55,8 +55,8 @@ namespace CLDV6212POE.Controllers
 
                     if (response.IsSuccessStatusCode)
                     {
-                        // Insert customer data into SQL database
-                        await _customerService.InsertCustomerAsync(profile);
+                        
+                        await _customerService.InsertCustomerAsync(profile);//Customer Data gets put into the SQL Database
                         return RedirectToAction("Index");
                     }
                     else
