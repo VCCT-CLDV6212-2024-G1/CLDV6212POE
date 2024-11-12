@@ -73,9 +73,9 @@ namespace CLDV6212POE.Controllers
             return View("Index", profile);
         }
 
-        // Existing method to upload blob and new SQL insertion for blob data
+       
         [HttpPost]
-        public async Task<IActionResult> UploadBlob(IFormFile imageFile)
+        public async Task<IActionResult> UploadBlob(IFormFile imageFile)// Existing method to upload blob and new SQL insertion for blob data
         {
             if (imageFile != null)
             {
