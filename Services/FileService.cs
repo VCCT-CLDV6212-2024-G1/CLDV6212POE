@@ -24,7 +24,7 @@ namespace CLDV6212POE.Services
             var directoryClient = shareClient.GetRootDirectoryClient(); // Get the root directory client.
             var fileClient = directoryClient.GetFileClient(fileName); // Get the file client for the specific file.
             await fileClient.CreateAsync(content.Length); // Create the file with the specified length.
-            await fileClient.UploadAsync(content); // Upload the file content
+            await fileClient.UploadAsync(content); // Upload the file content.
         }
     }
 }
