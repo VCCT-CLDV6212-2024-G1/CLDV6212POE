@@ -20,7 +20,7 @@ namespace CLDV6212POE.Services
         public async Task UploadFileAsync(string shareName, string fileName, Stream content)
         {
             var shareClient = _shareServiceClient.GetShareClient(shareName); // Get the share client.
-            await shareClient.CreateIfNotExistsAsync(); // Create the share if it doesn't exist
+            await shareClient.CreateIfNotExistsAsync(); // Create the share if it doesn't exist.
             var directoryClient = shareClient.GetRootDirectoryClient(); // Get the root directory client
             var fileClient = directoryClient.GetFileClient(fileName); // Get the file client for the specific file
             await fileClient.CreateAsync(content.Length); // Create the file with the specified length
