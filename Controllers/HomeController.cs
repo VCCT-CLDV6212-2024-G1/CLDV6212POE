@@ -46,10 +46,10 @@ namespace CLDV6212POE.Controllers
             {
                 try
                 {
-                    // Call Azure function to store data in Azure Table
+                    
                     using var httpClient = _httpClientFactory.CreateClient();
                     var baseUrl = _configuration["AzureFunctions:StoreTableInfo"];
-                    var requestUri = $"{baseUrl}&tableName=CustomerProfiles&partitionKey={profile.PartitionKey}&rowKey={profile.RowKey}&firstName={profile.FirstName}&lastName={profile.LastName}&phoneNumber={profile.PhoneNumber}&Email={profile.Email}";
+                    var requestUri = $"{baseUrl}&tableName=CustomerProfiles&partitionKey={profile.PartitionKey}&rowKey={profile.RowKey}&firstName={profile.FirstName}&lastName={profile.LastName}&phoneNumber={profile.PhoneNumber}&Email={profile.Email}";// get information for the Azure Table
 
                     var response = await httpClient.PostAsync(requestUri, null);
 
