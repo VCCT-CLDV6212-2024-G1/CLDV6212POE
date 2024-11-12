@@ -93,8 +93,8 @@ namespace CLDV6212POE.Controllers
 
                     if (response.IsSuccessStatusCode)
                     {
-                        // Convert image to byte array for SQL insertion
-                        using (var memoryStream = new MemoryStream())
+                        
+                        using (var memoryStream = new MemoryStream()) // Convert image to byte array for SQL insertion
                         {
                             await imageFile.CopyToAsync(memoryStream);
                             var imageData = memoryStream.ToArray();
