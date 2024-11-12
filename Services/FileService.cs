@@ -10,10 +10,10 @@ namespace CLDV6212POE.Services
     {
         private readonly ShareServiceClient _shareServiceClient;
 
-        // Constructor initialises the ShareServiceClient using the connection string from configuration
+        
         public FileService(IConfiguration configuration)
         {
-            _shareServiceClient = new ShareServiceClient(configuration["AzureStorage:ConnectionString"]);
+            _shareServiceClient = new ShareServiceClient(configuration["AzureStorage:ConnectionString"]);// Constructor initialises the ShareServiceClient using the connection string from configuration
         }
 
         // Method to upload a file to a specified share in Azure File Storage
