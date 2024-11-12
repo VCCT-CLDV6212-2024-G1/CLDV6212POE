@@ -99,8 +99,8 @@ namespace CLDV6212POE.Controllers
                             await imageFile.CopyToAsync(memoryStream);
                             var imageData = memoryStream.ToArray();
 
-                            // Insert image data into SQL BlobTable
-                            await _blobService.InsertBlobAsync(imageData);
+                           
+                            await _blobService.InsertBlobAsync(imageData); // Insert image data into SQL BlobTable
                         }
 
                         return RedirectToAction("Index");
